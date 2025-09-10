@@ -1,0 +1,237 @@
+:root {
+  --bg: #0b0f16;
+  --panel: #111827;
+  --accent1: #6c7fff;
+  --accent2: #9d7bff;
+  --fg: #e5e7eb;
+  --muted: #9ca3af;
+  --ok: #10b981;
+  --err: #ef4444;
+  --warn: #f59e0b;
+  --info: #6c7fff;
+  --success: #10b981;
+  --border: #1b2235;
+  --surface: #0f1320;
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  min-height: 280px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 600 14px 'Inter', system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.box {
+  padding: 20px;
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.ver {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.warn {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.warn div {
+  position: relative;
+  padding-left: 0;
+}
+
+.contact {
+  color: #facc15;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+#solveButton {
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#solveButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+#solveButton:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 127, 255, 0.4);
+}
+
+#solveButton:hover::before {
+  left: 100%;
+}
+
+#solveButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(108, 127, 255, 0.3);
+}
+
+#solveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+#solveButton:disabled::before {
+  display: none;
+}
+
+.status {
+  margin-top: 14px;
+  text-align: center;
+  min-height: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#progressContainer {
+  display: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+#progressBar {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  animation: progressAnim 1.5s infinite;
+}
+
+@keyframes progressAnim {
+  0% { margin-left: -30%; }
+  100% { margin-left: 100%; }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.status.success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.status.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+@media (max-width: 360px) {
+  body {
+    width: 300px;
+  }
+
+  .box {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
